@@ -134,6 +134,7 @@ def draw(context, init_img_path, image_texture_node, material, cleanup):
         image = bpy.data.images.new(name="depth", width=viewport[2], height=viewport[3], float_buffer=True, alpha=False, is_data=True)
         dim = len(image.pixels)
         dim2 = len(dflat)
+        dflat[3::4] = 1
         image.pixels = dflat
 
         gen = Generator.shared()
