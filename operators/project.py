@@ -130,6 +130,12 @@ def draw(context, init_img_path, image_texture_node, material, cleanup):
         depth = 1 - depth
         depth = np.interp(depth, [np.ma.masked_equal(depth, 0, copy=False).min(), depth.max()], [0, 1]).clip(0, 1)
 
+        dflat = np.repeat([depth], 4)
+        image = bpy.data.images.new(name="depth", width=viewport[2], height=viewport[3], float_buffer=True, alpha=False, is_data=True)
+        dim = len(image.pixels)
+        dim2 = len(dflat)
+        image.pixels = dflat
+
         gen = Generator.shared()
         
         texture = None
